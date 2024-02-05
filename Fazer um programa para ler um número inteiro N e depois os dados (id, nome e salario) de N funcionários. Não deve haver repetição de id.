@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+
+class Funcionario {
+    public int Id { get; private set; }
+    public string Nome { get; private set; }
+    private double salario;
+
+    public double Salario {
+        get { return salario; }
+        set {
+            if (value > 0) {
+                salario = value;
+            } else {
+                Console.WriteLine("O salário deve ser um valor positivo.");
+            }
+        }
+    }
+
+    // Construtor
+    public Funcionario(int id, string nome, double salario) {
+        Id = id;
+        Nome = nome;
+        Salario = salario;
+    }
+
+    // Método para aplicar aumento de X por cento no salário
+    public void AumentarSalario(double percentual) {
+        Salario += Salario * (percentual / 100);
+    }
+
+    // Método para exibir informações do funcionário
+    public void ExibirInformacoes() {
+        Console.WriteLine($"{Id}, {Nome}, {Salario.ToString("F2")}");
+    }
+}
+
+class Program {
+    static void Main() {
+        Console.Write("Quantos funcionários serão registrados? ");
+        int quantidadeFuncionarios = int.Parse(Console.ReadLine());
+
+        List<Funcionario> funcionarios = new List<Funcionario>();
+
+        for (int i = 1; i <= quantidadeFuncionarios; i++) {
+            Console.WriteLine($"\nFunc #{i}:");
+            Funcionario funcionario = LerDadosFuncionario();
+            funcionarios.Add(funcionario);
+        }
+
+        Console.Write("\nEntre com o ID de quem receberá o reajuste: ");
+        int idReajuste = int.Parse(Console.ReadLine());
+
+        Funcionario funcionarioReajuste = funcionarios.Find(f => f.Id == idReajuste);
+
+        if (funcionarioReajuste != null) {
+            Console.Write("Entre com a porcentagem de aumento: ");
+            double percentualAumento = double.Parse(Console.ReadLine());
+            funcionarioReajuste.AumentarSalario(percentualAumento);
+        } else {
+            Console.WriteLine("Este ID não existe.");
+        }
+
+        Console.WriteLine("\nLista atualizada:");
+        foreach (Funcionario funcionario in funcionarios) {
+            funcionario.ExibirInformacoes();
+        }
+    }
+
+    static Funcionario LerDadosFuncionario() {
+        Console.Write("Id: ");
+        int id = int.Parse(Console.ReadLine());
+
+        Console.Write("Name: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Salary: ");
+        double salario = double.Parse(Console.ReadLine());
+
+        return new Funcionario(id, nome, salario);
+    }
+}
