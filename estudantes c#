@@ -1,0 +1,35 @@
+using System;
+
+class Estudante {
+    public string Nome { get; set; }
+    public int Idade { get; set; }
+    public double Nota { get; set; }
+
+    // Construtor
+    public Estudante(string nome, int idade, double nota) {
+        Nome = nome;
+        Idade = idade;
+        Nota = nota;
+    }
+
+    // Método para exibir informações do estudante
+    public void ExibirInformacoes() {
+        Console.WriteLine($"Nome: {Nome}, Idade: {Idade}, Nota: {Nota}");
+    }
+}
+
+class Program {
+    static void Main() {
+        // Criando uma instância da classe Estudante
+        Estudante estudante1 = new Estudante("Maria", 20, 8.5);
+
+        // Acessando e modificando propriedades
+        estudante1.ExibirInformacoes();
+
+        // Modificando a nota
+        estudante1.Nota = 9.0;
+
+        // Exibindo informações atualizadas
+        estudante1.ExibirInformacoes();
+    }
+}
